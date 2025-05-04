@@ -17,6 +17,8 @@ if prompt:
   show_and_append_single_chat_message(ChatMessage(role="user", message=prompt))
 
   with st.spinner("Generating response...", show_time=True):
-    chat_agent_deps = ChatAgentDeps(username=st.session_state.username)
+    chat_agent_deps = ChatAgentDeps(
+      username = st.user.name if st.user.is_logged_in else None,
+    )
     response = asyncio.run(st.session_state.chat_agent.chat(prompt, chat_agent_deps))
     show_and_append_single_chat_message(ChatMessage(role="assistant", message=response))

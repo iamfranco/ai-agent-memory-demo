@@ -1,0 +1,9 @@
+.st-key-user_info {
+  flex-direction: row;
+  align-items: middle;
+  gap: 5px;
+}
+
+.st-key-user_info .element-container:nth-child(1) {
+  width: auto;
+}

@@ -1,0 +1,24 @@
+name: Deploy to Dev Branch
+
+on:
+  workflow_dispatch:  # This allows the workflow to be manually triggered
+
+jobs:
+  force-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for all branches
+
+      - name: Force push to dev branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides this token
+        run: |
+          # Ensure we are on the feature branch
+          git checkout "${{ github.ref }}"  # This will be the branch that triggered the workflow
+          
+          # Force push the feature branch to dev
+          git push origin HEAD:dev --force  # Force push the current branch to dev
